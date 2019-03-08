@@ -39,4 +39,4 @@ Steps to install the dependencies
 Steps to run the application
 > npm start
 
-The application runs on port 3500
+The application runs on port 3500, open http://localhost:3500 in browser

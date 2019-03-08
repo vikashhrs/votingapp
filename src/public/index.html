@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VotingLogin</title>
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body onload="onBodyLoad()">
+    <div class="container">
+        <div id="login">
+            <div>
+                <label for="uname"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" id="email" required>
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="password" id="password" required>
+
+                <button id="loginBtn" type="button">Login</button>
+            </div>
+        </div>
+        <div id="voting">
+            <h3>Choose among the below candidates</h3>
+            <div id="candidate_list">
+                <div class="radio">
+                    <label><input type="radio" name="optradio" value="1">Option 1</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="optradio" value="2">Option 2</label>
+                </div>
+                <div class="radio disabled">
+                    <label><input type="radio" name="optradio" value="3">Option 3</label>
+                </div>
+            </div>
+            <button type="button" onclick="castVote()">Cast Vote</button>
+        </div>
+        <div id="candidates">
+            <table id="candidates_table">
+            </table>
+        </div>
+
+        <button id="logout" onclick="logout()">Logout</button>
+    </div>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

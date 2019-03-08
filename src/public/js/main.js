@@ -12,17 +12,24 @@ const logoutButton = document.querySelector('#logout');
 loginBtn.addEventListener('click', () => {
     if (email.value && password.value) {
         loginUsingCredentials({ email: email.value, password: password.value }, (err, data) => {
-            login.style.display = 'none';
-            localStorage.setItem('auth_token', data.token);
-            if (data && data.type === 'admin') {
-                candidates.style.display = 'block';
-                displayCandidatesWithVotes();
+            console.log(err);
+            if (!err) {
+                login.style.display = 'none';
+                localStorage.setItem('auth_token', data.token);
+                if (data && data.type === 'admin') {
+                    candidates.style.display = 'block';
+                    displayCandidatesWithVotes();
+                } else {
+                    voting.style.display = 'block';
+                    displayCandidatesWithHandle();
+                }
+                logoutButton.style.display = 'block';
             } else {
-                voting.style.display = 'block';
-                displayCandidatesWithHandle();
+                alert('Invalid Credentials!');
             }
-            logoutButton.style.display = 'block';
         })
+    } else {
+        alert('Missing values!');
     }
 })
 
@@ -147,7 +154,11 @@ function loginUsingCredentials(credentials, callback) {
     }).then((res) => {
         return res.json();
     }).then((data) => {
-        callback(null, data)
+        if (data.error) {
+            callback(new Error('Invalid Credentials'));
+        } else {
+            callback(null, data);
+        }
     }).catch((err) => {
         callback(err);
     });

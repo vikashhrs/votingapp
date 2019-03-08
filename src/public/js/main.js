@@ -10,9 +10,9 @@ const candidate_list = document.querySelector('#candidate_list');
 const logoutButton = document.querySelector('#logout');
 
 loginBtn.addEventListener('click', () => {
-    if (email.value && password.value) {
+    if (email.value && password.value && validateEmail(email.value)) {
+
         loginUsingCredentials({ email: email.value, password: password.value }, (err, data) => {
-            console.log(err);
             if (!err) {
                 login.style.display = 'none';
                 localStorage.setItem('auth_token', data.token);
@@ -29,9 +29,14 @@ loginBtn.addEventListener('click', () => {
             }
         })
     } else {
-        alert('Missing values!');
+        alert(email.value && password.value ? 'Invalid email' : 'missing values');
     }
-})
+});
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
 function onBodyLoad() {
     if (localStorage.getItem('auth_token')) {
